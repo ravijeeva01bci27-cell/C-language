@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Comparison function for qsort
+int compare(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
+void cutTheSticks(int n, int arr[]) {
+    // 1. Sort the sticks in ascending order
+    qsort(arr, n, sizeof(int), compare);
+
+    // 2. The first iteration always involves all sticks
+    printf("%d\n", n);
+
+    for (int i = 1; i < n; i++) {
+        // 3. If the current stick is different from the previous one,
+        // it means we've started a new "cut" iteration.
+        if (arr[i] != arr[i - 1]) {
+            // The number of sticks remaining is the total (n) minus the index (i)
+            printf("%d\n", n - i);
+        }
+    }
+}
+
+int main() {
+    int n;
+    if (scanf("%d", &n) != 1) return 0;
+
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    cutTheSticks(n, arr);
+
+    return 0;
+}
