@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, k, q;
+    // Read n (size), k (rotations), q (queries)
+    if (scanf("%d %d %d", &n, &k, &q) != 3) return 0;
+
+    int *a = malloc(n * sizeof(int));
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    // Effective rotations (rotating n times is the same as 0 times)
+    k = k % n;
+
+    while (q--) {
+        int query_index;
+        scanf("%d", &query_index);
+
+        // Find the index in the original array that moved to 'query_index'
+        // Formula: (current_pos - rotations + array_size) % array_size
+        int original_index = (query_index - k + n) % n;
+
+        printf("%d\n", a[original_index]);
+    }
+
+    free(a);
+    return 0;
+}
