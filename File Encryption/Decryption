@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+void processFile(int key) {
+    FILE *source = fopen("data.txt", "r");
+    FILE *target = fopen("processed.txt", "w");
+    char ch;
+
+    if (source == NULL) return;
+    while ((ch = fgetc(source)) != EOF) {
+        fputc(ch + key, target);
+    }
+    fclose(source);
+    fclose(target);
+    printf("File processed successfully.\n");
+}
+
+int main() {
+    int choice;
+    printf("1. Encrypt\n2. Decrypt\nChoice: ");
+    scanf("%d", &choice);
+    processFile(choice == 1 ? 3 : -3);
+    return 0;
+}
