@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+/*
+ * Complete the 'utopianTree' function below.
+ */
+int utopianTree(int n) {
+    int height = 1; // Initial height at cycle 0
+    
+    for (int i = 1; i <= n; i++) {
+        if (i % 2 != 0) {
+            // Spring cycle: Odd numbers (1, 3, 5...)
+            height *= 2;
+        } else {
+            // Summer cycle: Even numbers (2, 4, 6...)
+            height += 1;
+        }
+    }
+    
+    return height;
+}
+
+int main() {
+    int t;
+    if (scanf("%d", &t) != 1) return 0;
+    
+    while (t--) {
+        int n;
+        scanf("%d", &n);
+        printf("%d\n", utopianTree(n));
+    }
+    
+    return 0;
+}
