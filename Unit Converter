@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+void convertTemp() {
+    float c;
+    printf("Enter Celsius: ");
+    scanf("%f", &c);
+    printf("Fahrenheit: %.2f\n", (c * 9/5) + 32);
+}
+
+int main() {
+    int choice;
+    printf("1. Temperature\n2. Length (m to km)\nChoice: ");
+    scanf("%d", &choice);
+    if(choice == 1) convertTemp();
+    else {
+        float m;
+        printf("Enter Meters: ");
+        scanf("%f", &m);
+        printf("Kilometers: %.3f\n", m / 1000);
+    }
+    return 0;
+}
