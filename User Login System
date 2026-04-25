@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char user[20], pass[20];
+    printf("Set Username: "); scanf("%s", user);
+    printf("Set Password: "); scanf("%s", pass);
+
+    char u_try[20], p_try[20];
+    printf("\n--- Login ---\nUsername: "); scanf("%s", u_try);
+    printf("Password: "); scanf("%s", p_try);
+
+    if (strcmp(user, u_try) == 0 && strcmp(pass, p_try) == 0)
+        printf("Login Successful!\n");
+    else
+        printf("Access Denied.\n");
+
+    return 0;
+}
