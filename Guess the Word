@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char word[] = "programming";
+    char guess[20];
+    int len = strlen(word);
+    for(int i = 0; i < len; i++) guess[i] = '_';
+    guess[len] = '\0';
+
+    int tries = 6;
+    char c;
+    while(tries > 0 && strcmp(word, guess) != 0) {
+        printf("\nWord: %s  | Tries left: %d\nGuess a letter: ", guess, tries);
+        scanf(" %c", &c);
+        int found = 0;
+        for(int i = 0; i < len; i++) {
+            if(word[i] == c) { guess[i] = c; found = 1; }
+        }
+        if(!found) tries--;
+    }
+    if(strcmp(word, guess) == 0) printf("\nYou won! Word was: %s\n", word);
+    else printf("\nGame Over! Word was: %s\n", word);
+    return 0;
+}
