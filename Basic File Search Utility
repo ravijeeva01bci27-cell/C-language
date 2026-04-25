@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    FILE *fp = fopen("note.txt", "r");
+    char word[50], temp[100];
+    
+    if(!fp) return printf("Create note.txt first!\n"), 0;
+    
+    printf("Enter word to search: ");
+    scanf("%s", word);
+
+    while(fscanf(fp, "%s", temp) != EOF) {
+        if(strcmp(temp, word) == 0) {
+            printf("Word '%s' found in file!\n", word);
+            fclose(fp);
+            return 0;
+        }
+    }
+    printf("Word not found.\n");
+    fclose(fp);
+    return 0;
+}
