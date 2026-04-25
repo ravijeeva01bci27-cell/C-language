@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <time.h>
+
+int main() {
+    FILE *fp = fopen("log.txt", "a");
+    char task[100];
+    time_t now = time(NULL);
+
+    printf("Enter task for today: ");
+    fgets(task, sizeof(task), stdin);
+
+    fprintf(fp, "Date: %sTask: %s\n-----------------\n", ctime(&now), task);
+    fclose(fp);
+    printf("Task logged successfully!\n");
+    return 0;
+}
