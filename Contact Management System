@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Contact {
+    char name[50];
+    char phone[15];
+};
+
+void addContact() {
+    FILE *fp = fopen("contacts.txt", "a");
+    struct Contact c;
+    printf("Enter Name: "); scanf("%s", c.name);
+    printf("Enter Phone: "); scanf("%s", c.phone);
+    fprintf(fp, "%s %s\n", c.name, c.phone);
+    fclose(fp);
+    printf("Contact saved!\n");
+}
+
+void showContacts() {
+    FILE *fp = fopen("contacts.txt", "r");
+    char name[50], phone[15];
+    if (fp == NULL) { printf("No contacts found.\n"); return; }
+    printf("\n--- Contact List ---\n");
+    while (fscanf(fp, "%s %s", name, phone) != EOF) {
+        printf("Name: %s | Phone: %s\n", name, phone);
+    }
+    fclose(fp);
+}
+
+int main() {
+    int choice;
+    while(1) {
+        printf("\n1. Add Contact\n2. Show Contacts\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+        if (choice == 1) addContact();
+        else if (choice == 2) showContacts();
+        else break;
+    }
+    return 0;
+}
