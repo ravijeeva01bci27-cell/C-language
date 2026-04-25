@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    char *s;
+    s = malloc(1024 * sizeof(char));
+    
+    // Read the entire line including spaces
+    // [^\n] tells scanf to read everything until a newline is found
+    scanf("%[^\n]", s);
+    
+    // Use strtok to find the first "word" delimited by a space
+    char *word = strtok(s, " ");
+    
+    // Continue finding words until strtok returns NULL
+    while (word != NULL) {
+        printf("%s\n", word);
+        word = strtok(NULL, " ");
+    }
+    
+    free(s);
+    return 0;
+}
