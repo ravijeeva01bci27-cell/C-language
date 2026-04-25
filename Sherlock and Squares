@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <math.h>
+
+int squares(int a, int b) {
+    // sqrt() returns a double, so we use floor and ceil to get integer boundaries
+    int lower_bound = (int)ceil(sqrt(a));
+    int upper_bound = (int)floor(sqrt(b));
+    
+    if (lower_bound > upper_bound) {
+        return 0;
+    }
+    
+    return upper_bound - lower_bound + 1;
+}
+
+int main() {
+    int q;
+    scanf("%d", &q);
+    
+    while (q--) {
+        int a, b;
+        scanf("%d %d", &a, &b);
+        printf("%d\n", squares(a, b));
+    }
+    
+    return 0;
+}
