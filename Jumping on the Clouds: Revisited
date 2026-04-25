@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int jumpingOnClouds(int n, int k, int* c) {
+    int energy = 100;
+    int current = 0;
+
+    do {
+        // Calculate next jump position (circular)
+        current = (current + k) % n;
+        
+        // Basic cost of jump
+        energy -= 1;
+        
+        // Additional cost if it's a thunderhead
+        if (c[current] == 1) {
+            energy -= 2;
+        }
+        
+    } while (current != 0); // Stop when back at the start
+
+    return energy;
+}
+
+int main() {
+    int n, k;
+    scanf("%d %d", &n, &k);
+    
+    int c[n];
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &c[i]);
+    }
+
+    int result = jumpingOnClouds(n, k, c);
+    printf("%d\n", result);
+
+    return 0;
+}
