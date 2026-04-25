@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+struct Account {
+    int accNum;
+    char name[50];
+    float balance;
+};
+
+int main() {
+    struct Account bank[3] = {{101, "Alice", 500.0}, {102, "Bob", 1200.5}, {103, "Charlie", 75.0}};
+    int id, found = 0;
+    
+    printf("Enter Account Number to Check: ");
+    scanf("%d", &id);
+
+    for(int i = 0; i < 3; i++) {
+        if(bank[i].accNum == id) {
+            printf("Owner: %s | Balance: $%.2f\n", bank[i].name, bank[i].balance);
+            found = 1;
+            break;
+        }
+    }
+    if(!found) printf("Account not found.\n");
+    return 0;
+}
