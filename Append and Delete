@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+
+char* appendAndDelete(char* s, char* t, int k) {
+    int s_len = strlen(s);
+    int t_len = strlen(t);
+    int commonLength = 0;
+
+    // 1. Find the length of the common prefix
+    while (commonLength < s_len && commonLength < t_len) {
+        if (s[commonLength] == t[commonLength]) {
+            commonLength++;
+        } else {
+            break;
+        }
+    }
+
+    int min_ops = (s_len - commonLength) + (t_len - commonLength);
+
+    // 2. Determine if k operations is possible
+    if (k >= s_len + t_len) {
+        return "Yes";
+    } else if (k >= min_ops && (k - min_ops) % 2 == 0) {
+        return "Yes";
+    } else {
+        return "No";
+    }
+}
+
+int main() {
+    char s[101], t[101];
+    int k;
+
+    scanf("%s", s);
+    scanf("%s", t);
+    scanf("%d", &k);
+
+    printf("%s\n", appendAndDelete(s, t, k));
+
+    return 0;
+}
