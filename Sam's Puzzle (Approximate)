@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int N;
+int A[51][51];
+int temp[51][51];
+
+// 1. Calculate Total Goodness of the Matrix
+long long calculate_goodness(int mat[51][51]) {
+    long long goodness = 0;
+    for (int i = 1; i <= N; i++) {
+        for (int j = 1; j <= N; j++) {
+            for (int k = j + 1; k <= N; k++) {
+                if (mat[i][j] < mat[i][k]) goodness++; // Row-wise
+                if (mat[j][i] < mat[k][i]) goodness++; // Column-wise
+            }
+        }
+    }
+    return goodness;
+}
+
+// 2. Rotate a sub-square Clockwise
+void rotate(int mat[51][51], int r, int c, int s) {
+    int b[51][51];
+    for (int i = 0; i < s; i++) {
+        for (int j = 0; j < s; j++) {
+            b[j][s - 1 - i] = mat[r + i][c + j];
+        }
+    }
+    for (int i = 0; i < s; i++) {
+        for (int j = 0; j < s; j++) {
+            mat[r + i][c + j] = b[i][j];
+        }
+    }
+}
+
+// 3. Copy Matrix Utility
+void copy_mat(int src[51][51], int dest[51][51]) {
+    for (int i = 1; i <= N; i++)
+        for (int j = 1; j <= N; j++)
+            dest[i][j] = src[i][j];
+}
+
+int main() {
+    scanf("%d", &N);
+    for (int i = 1; i <= N; i++)
+        for (int j = 1; j <= N; j++)
+            scanf("%d", &A[i][j]);
+
+    int moves = 0;
+    int move_list[500][3];
+    long long current_goodness = calculate_goodness(A);
+
+    // Greedy Search: Try to find a move that increases goodness
+    while (moves < 500) {
+        int best_r = -1, best_c = -1, best_s = -1;
+        long long best_new_goodness = current_goodness;
+
+        // Try all possible sub-squares
+        for (int s = 2; s <= N; s++) {
+            for (int r = 1; r <= N - s + 1; r++) {
+                for (int c = 1; c <= N - s + 1; c++) {
+                    copy_mat(A, temp);
+                    rotate(temp, r, c, s);
+                    long long new_g = calculate_goodness(temp);
+                    
+                    if (new_g > best_new_goodness) {
+                        best_new_goodness = new_g;
+                        best_r = r; best_c = c; best_s = s;
+                    }
+                }
+            }
+        }
+
+        // If no better move is found, stop
+        if (best_r == -1) break;
+
+        // Apply the best move
+        rotate(A, best_r, best_c, best_s);
+        move_list[moves][0] = best_r;
+        move_list[moves][1] = best_c;
+        move_list[moves][2] = best_s;
+        current_goodness = best_new_goodness;
+        moves++;
+    }
+
+    // Output
+    printf("%d\n", moves);
+    for (int i = 0; i < moves; i++) {
+        printf("%d %d %d\n", move_list[i][0], move_list[i][1], move_list[i][2]);
+    }
+
+    return 0;
+}
