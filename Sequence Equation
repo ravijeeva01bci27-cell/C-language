@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    // Using an array of size n+1 to handle 1-based indexing easily
+    int p[n + 1];
+    int pos[n + 1];
+
+    for (int i = 1; i <= n; i++) {
+        scanf("%d", &p[i]);
+        // Store the position of each value
+        // Example: if p[1] = 4, then pos[4] = 1
+        pos[p[i]] = i;
+    }
+
+    for (int y = 1; y <= n; y++) {
+        // Step 1: Find where y is in the array p
+        int first_index = pos[y];
+        
+        // Step 2: Find the x that points to that index
+        int x = pos[first_index];
+        
+        printf("%d\n", x);
+    }
+
+    return 0;
+}
