@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <time.h>
+
+int main() {
+    time_t start, end;
+    char enter;
+
+    printf("Press Enter to START the stopwatch...");
+    scanf("%c", &enter);
+    time(&start);
+
+    printf("Stopwatch running... Press Enter to STOP.");
+    scanf("%c", &enter);
+    time(&end);
+
+    printf("Elapsed time: %.f seconds\n", difftime(end, start));
+    return 0;
+}
