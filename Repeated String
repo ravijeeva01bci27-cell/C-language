@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+
+long repeatedString(char* s, long n) {
+    long len = strlen(s);
+    long count_in_base = 0;
+
+    // 1. Count 'a's in one full instance of the string
+    for (int i = 0; i < len; i++) {
+        if (s[i] == 'a') count_in_base++;
+    }
+
+    // 2. Calculate how many full strings fit in n
+    long full_repeats = n / len;
+    long total_count = full_repeats * count_in_base;
+
+    // 3. Handle the remaining characters
+    long remainder = n % len;
+    for (int i = 0; i < remainder; i++) {
+        if (s[i] == 'a') total_count++;
+    }
+
+    return total_count;
+}
+
+int main() {
+    char s[101]; // Constraint says string length <= 100
+    long n;
+
+    if (scanf("%s", s) != 1) return 0;
+    if (scanf("%ld", &n) != 1) return 0;
+
+    printf("%ld\n", repeatedString(s, n));
+
+    return 0;
+}
