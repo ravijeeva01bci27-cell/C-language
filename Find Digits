@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+// Function to count divisor digits
+int findDigits(int n) {
+    int count = 0;
+    int temp = n;
+
+    while (temp > 0) {
+        int digit = temp % 10;
+        
+        // Ensure we don't divide by zero
+        if (digit != 0 && n % digit == 0) {
+            count++;
+        }
+        
+        temp /= 10;
+    }
+    return count;
+}
+
+int main() {
+    int t;
+    // Read number of test cases
+    if (scanf("%d", &t) != 1) return 0;
+
+    while (t--) {
+        int n;
+        // Read the integer for the current test case
+        if (scanf("%d", &n) == 1) {
+            printf("%d\n", findDigits(n));
+        }
+    }
+
+    return 0;
+}
